@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom"
 import axios from 'axios'
 
 
-const Login = () => {
+function Login ()  {
+
+    const history = useNavigate();
 
     const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
@@ -14,6 +16,18 @@ const Login = () => {
         try{
             await axios.post("http://localhost:8000/", {
                 email,password
+            })
+            .then(res =>{
+                if(res.data = "exist"){
+                   history("/home", {state:{id:email}}) 
+                }
+                else if(res.data = "notexist"){
+                    alert("User does not exist")
+                }
+            })
+            .catch(e => {
+                alert("Wrong details")
+                console.log(e);
             })
         }
         catch{

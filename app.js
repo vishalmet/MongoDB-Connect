@@ -47,10 +47,15 @@ app.post("/signup", async(req,res)=>{
         }
         else{
             res.json("notexist")
+            await collection.insertMany([data])
         }
     }   
 
     catch(e){
         res.json("notexist")
     }
+})
+
+app.listen (8000, () => {
+    comsole.log("port connected");
 })
